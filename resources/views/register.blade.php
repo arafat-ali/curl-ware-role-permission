@@ -1,15 +1,5 @@
 @extends('layouts.auth')
 @section('content')
-{{-- @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-            <li>{{ $errors->has('lastName') }}</li>
-        </ul>
-    </div>
-@endif --}}
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <a

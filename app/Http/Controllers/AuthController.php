@@ -9,6 +9,7 @@ use App\Http\Requests\LoginFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 class AuthController extends Controller
 {
 
@@ -17,12 +18,15 @@ class AuthController extends Controller
     }
 
     public function postRegister(RegisterFormRequest $request):RedirectResponse{
-        $user = $request->only(['firstName', 'lastName', 'email']);
-        $success = DB::table('users')->insert([
-            ...$user,
+        $data = $request->only(['firstName', 'lastName', 'email']);
+        $employee = User::create([
+            ...$data,
             'password' => bcrypt($request->password)
         ]);
-        if($success) return redirect()->route('login')->with('message', 'Registration successful');
+        if($employee) {
+            $employee->assignRole('employee');
+            return redirect()->route('login')->with('message', 'Registration successful');
+        }
         return back()->withInput();
     }
 
@@ -33,14 +37,19 @@ class AuthController extends Controller
 
     public function postLogin(LoginFormRequest $request) : RedirectResponse{
         $email = $request->email;
-        $user = DB::table('users')->where('email', $email)->first();
+        $user = User::where('email', $email)->first();
         if(!$user){
             return back()->withInput()->with('no_account_found', 'No account found with this email');
         }
 
         if (Auth::attempt($request->only(['email', 'password']))) {
             $request->session()->regenerate();
-            return redirect()->intended('user');
+            if($user->hasRole('admin'))
+                return redirect()->intended('/admin');
+            else if($user->hasRole('manager'))
+                return redirect()->intended('/manager');
+            else
+                return redirect()->intended('/employee');
         }
 
         return back()->withInput()->with('password_mismatch', 'Credential not matched!');
