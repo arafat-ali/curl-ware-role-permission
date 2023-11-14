@@ -7,7 +7,7 @@
             <div class="w-full flex flex-wrap my-2">
                 <span class="w-1/2 pb-2 text-lg font-semibold">Roles</span>
                 <span class="w-1/2">
-                    <button class="border-2 px-2 bg-gray-200 float-right rounded-lg border-gray-900">Create role</button>
+                    <a href="/admin/create-role" class="border-2 px-2 bg-gray-200 float-right rounded-lg border-gray-900">Create role</a>
                 </span>
             </div>
 
@@ -42,7 +42,7 @@
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex">
-                                    <span><a href="">Edit</a></span>
+                                    <span><a href="/admin/role/{{$row->name}}">Edit</a></span>
                                     <span class="ml-2"><a href="">Delete</a></span>
                                 </div>
                             </td>

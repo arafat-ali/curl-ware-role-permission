@@ -48,10 +48,15 @@ Route::group([
         ],
         "prefix"     => "admin/"
     ], function () {
-        Route::get('/users', [UserController::class, 'userList']);
-        Route::get('/roles', [AccessController::class, 'roles']);
-        Route::get('/create-role', [AccessController::class, 'create']);
-        Route::get('/access-control', [AccessController::class, 'showEditAccessForm']);
+        Route::get('/users', [UserController::class, 'userList'])->name('users');
+        Route::get('/roles', [AccessController::class, 'roles'])->name('roles');
+
+        Route::get('/create-role', [AccessController::class, 'createRoleWithPermission']);
+        Route::post('/create-role', [AccessController::class, 'postRoleWithPermission']);
+        Route::get('/role/{name}', [AccessController::class, 'showRole']);
+
+        Route::get('/assign-role/{userId}', [AccessController::class, 'assignRoleToUser']);
+        Route::post('/assign-role/{userId}', [AccessController::class, 'PostRoleToUser']);
     });
 
     Route::group([

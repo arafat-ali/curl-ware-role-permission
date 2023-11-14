@@ -39,7 +39,7 @@
                                 {{$row->roles[0]->name}}
                             </td>
                             <td class="px-6 py-4">
-                                Edit
+                                <a href="/admin/assign-role/{{$row->id}}">Edit Role</a>
                             </td>
                             <td class="px-6 py-4">
                                 Delete

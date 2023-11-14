@@ -22,17 +22,11 @@
                             <li>
                                 <a href="/admin/roles" class="block py-2 px-3 text-black rounded md:bg-transparent md:p-0">Roles</a>
                             </li>
-                            <li>
-                                <a href="#" class="block py-2 px-3 text-black rounded md:bg-transparent md:p-0">Attendances</a>
-                            </li>
                             @endif
 
                             @if(Auth::user()->hasRole('manager'))
                             <li>
                                 <a href="#" class="block py-2 px-3 text-black rounded md:bg-transparent md:p-0">My employees</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block py-2 px-3 text-black rounded md:bg-transparent md:p-0">Attendances</a>
                             </li>
                             @endif
 
